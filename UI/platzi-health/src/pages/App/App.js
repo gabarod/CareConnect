@@ -15,7 +15,7 @@ function App() {
       <MainLayout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/registrar" element={<Register />} />
+          <Route path="/registro" element={<Register />} />
         </Routes>
       </MainLayout>
     </Web3ReactProvider>
