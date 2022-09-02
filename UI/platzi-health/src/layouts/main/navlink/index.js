@@ -13,7 +13,7 @@ const Links = [
 
 function NavLink() {
   return (
-    <Navbar bg="light" variant="light">
+    <Navbar bg="light" variant="light" className='mb-5'>
       <Container>
         <Navbar.Brand href="#home">
           <img
