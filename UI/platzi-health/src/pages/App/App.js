@@ -7,6 +7,7 @@ import Home from '../Home';
 import Register from '../Register';
 import Report from '../Report';
 import HistoryList from '../HistoryList';
+import History from '../History';
 function getLibrary(provider) {
   return new Web3Provider(provider);
 }
@@ -20,6 +21,7 @@ function App() {
           <Route path="/registro" element={<Register />} />
           <Route path="/informe" element={<Report />} />
           <Route path="/historiales" element={<HistoryList />} />
+          <Route path="/historial" element={<History />} />
         </Routes>
       </MainLayout>
     </Web3ReactProvider>
