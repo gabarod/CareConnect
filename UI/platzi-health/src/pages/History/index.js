@@ -7,6 +7,7 @@ const History = () => {
   return (
     <div className="wm-75 mx-auto">
       <div className="d-flex flex-column align-items-center mw-75">
+        <h2>Detalle</h2>
         <Card>
           <ListGroup variant="flush">
             <ListGroup.Item>
