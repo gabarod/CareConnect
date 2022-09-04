@@ -5,12 +5,12 @@ import { MdRemoveRedEye } from 'react-icons/md';
 
 const HistoryList = () => {
   return (
-    <Stack className='mw-75 mx-auto'>
+    <Stack className='wm-75 mx-auto'>
       <div className="d-flex align-items-center justify-content-end mb-2">
         <Button variant="primary">Agregar Diagnóstico</Button>
       </div>
       <div className="d-flex flex-column align-items-center">
-        <Card>
+        <Card style={{ width: '100%' }}>
           <ListGroup variant="flush">
             {[0, 1, 2].map((item) => (
               <ListGroup.Item key={item}>
