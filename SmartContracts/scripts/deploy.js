@@ -1,13 +1,13 @@
 const hre = require("hardhat");
 
 async function main() {
-  const PlatziHealth = await hre.ethers.getContractFactory("PlatziHealth");
-  const platziHealthContract = await PlatziHealth.deploy();
+  const Records = await hre.ethers.getContractFactory("Records");
+  const recordsContract = await Records.deploy();
 
-  await platziHealthContract.deployed();
+  await recordsContract.deployed();
 
   console.log(
-    `Platzi Health deployed to ${platziHealthContract.address}`
+    `Platzi Health deployed to ${recordsContract.address}`
   );
 }
 
