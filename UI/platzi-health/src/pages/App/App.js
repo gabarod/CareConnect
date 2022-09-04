@@ -6,7 +6,7 @@ import MainLayout from '../../layouts/main';
 import Home from '../Home';
 import Register from '../Register';
 import Report from '../Report';
-import HistoryList from '../historyList';
+import HistoryList from '../HistoryList';
 function getLibrary(provider) {
   return new Web3Provider(provider);
 }
