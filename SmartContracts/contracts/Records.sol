@@ -3,9 +3,8 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 import {EntitiesStructs as es} from "./EntitiesStructs.sol";
-import './Files.sol';
 
-contract Records is Files{
+contract Records{
     // Mappings entities
     mapping(address => es.Doctor) Doctors;
     mapping(address => es.Patient) Patients;
@@ -13,6 +12,7 @@ contract Records is Files{
 
     // Mapping Patient Records
     mapping(uint256 => mapping(address => es.PatientRecord)) PatientRecords;
+    mapping(address => uint256) patientToRecord;
 
     // Mapping Access
     mapping(address => address) patientToDoctorAccess;
@@ -176,7 +176,7 @@ contract Records is Files{
 
     // PatientRecord Functions
 
-    function addRecord(es.PatientRecord memory _patientRecord)
+    function addRecord(es.PatientRecord memory _patientRecord, address _patientAddress)
         public
         onlyOwner
         patientExist(_patientRecord.patientId)
@@ -184,6 +184,8 @@ contract Records is Files{
     {
         recordCount += 1;
         PatientRecords[recordCount][_patientRecord.patientId] = _patientRecord;
+        //add record patient relationship
+        patientToRecord[_patientAddress] = recordCount;
     }
 
     function getRecord(uint256 _recordID, address _patientAddress)
@@ -230,28 +232,4 @@ contract Records is Files{
         hospitalToDoctorAccess[msg.sender] = doctor_id;
     }
 
-    /**
-     * @dev add report files to a patient
-     */
-    function addFile(
-        address _patientAddress,
-        string memory _type,
-        string memory _hash
-    ) public {
-        //require(hasRole(DOCTOR_ROLE, msg.sender), "addPatientFile: solo doctores pueden agregar informes");
-        _addPatientFile(_patientAddress, _type, _hash);
-    }
-
-    /**
-     * @dev get report files to a patient
-     */
-    function getFiles(address _patientAddress)
-        public
-        view
-        returns (File[] memory)
-    {
-        //require(hasRole(DOCTOR_PATIENT, msg.sender), "getFiles: solo pacientes pueden ver informes");
-        //require(hasRole(DOCTOR_ROLE, msg.sender), "getFiles: solo doctores pueden ver informes");
-        return _getPatientFiles(_patientAddress);
-    }
 }

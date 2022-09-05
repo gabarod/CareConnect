@@ -38,12 +38,18 @@ contract EntitiesStructs {
         string patientRecordId;
     }
 
+    struct File {
+        string typeFile;
+        string hashFile;
+    }
+
     struct PatientRecord {
         uint128 id;
         bool isActive;
         address doctorId;
         address patientId;
         string date;
-        string diagnosis;
+        string diagnosis;//👀
+        File diagnosisFiles;
     }
 }
