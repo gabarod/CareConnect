@@ -1,4 +1,5 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
+import Wallet from '../../../components/Wallet';
 
 const Links = [
   {
@@ -31,6 +32,9 @@ function NavLink() {
             </Nav.Link>
           ))}
         </Nav>
+      </Container>
+      <Container className='w-25'>
+        <Wallet/>
       </Container>
     </Navbar>
   );

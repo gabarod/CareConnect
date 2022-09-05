@@ -1,7 +1,13 @@
 import './FormDoctor.css';
 import { Button, Form } from 'react-bootstrap';
+import usePlatziHealthContract from '../../hooks/usePlatziHealthContract';
+import { useWeb3React } from '@web3-react/core';
 
 const FormDoctor = () => {
+  const { account } = useWeb3React();
+  const platziHealthContract = usePlatziHealthContract();
+  console.log(account);
+  console.log(platziHealthContract);
   return (
     <div className="d-flex flex-column align-items-center">
       <div className="form-container border border-1 rounded p-3">
