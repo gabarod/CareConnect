@@ -196,6 +196,8 @@ contract Records {
         view
         recordExists(_recordID, _patientAddress)
         onlyHospital
+        onlyPatients
+        onlyDoctors
         returns (es.PatientRecord memory)
     {
         return PatientRecords[_recordID][_patientAddress];
