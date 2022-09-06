@@ -44,7 +44,7 @@ const Hospital = () => {
       header: 'Info',
       message: msg,
     });
-    setShowToastInfo(!showToastSuccess);
+    setShowToastInfo(!showToastInfo);
   };
 
   const saveHospital = async (event) => {
