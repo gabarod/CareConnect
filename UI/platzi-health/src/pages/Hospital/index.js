@@ -1,5 +1,5 @@
 import './Hospital.css';
-import { Button, Form, Toast } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import usePlatziHealthContract from '../../hooks/usePlatziHealthContract';
 import { useWeb3React } from '@web3-react/core';
 import { useState } from 'react';
