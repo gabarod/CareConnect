@@ -1,5 +1,5 @@
 import './Hospital.css';
-import { Button, Form, Toast } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import usePlatziHealthContract from '../../hooks/usePlatziHealthContract';
 import { useWeb3React } from '@web3-react/core';
 import { useState } from 'react';
@@ -71,6 +71,11 @@ const Hospital = () => {
       .on('error', (error) => {
         toastError(`Transacción errónea ${error.message}`);
       });
+    setHospitalAccount('');
+    setId('');
+    setName('');
+    setHospitalAddress('');
+    setPhoneNumber('');
   };
 
   return (
@@ -93,6 +98,7 @@ const Hospital = () => {
               <Form.Control
                 type="text"
                 placeholder="Ingrese cuenta"
+                value={hospitalAccount}
                 onChange={(e) => setHospitalAccount(e.target.value)}
               />
             </Form.Group>
@@ -101,6 +107,7 @@ const Hospital = () => {
               <Form.Control
                 type="text"
                 placeholder="Ingrese Id"
+                value={id}
                 onChange={(e) => setId(e.target.value)}
               />
             </Form.Group>
@@ -109,6 +116,7 @@ const Hospital = () => {
               <Form.Control
                 type="text"
                 placeholder="Ingrese nombre"
+                value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </Form.Group>
@@ -117,6 +125,7 @@ const Hospital = () => {
               <Form.Control
                 type="text"
                 placeholder="Ingrese dirección"
+                value={hospitalAddress}
                 onChange={(e) => setHospitalAddress(e.target.value)}
               />
             </Form.Group>
@@ -125,6 +134,7 @@ const Hospital = () => {
               <Form.Control
                 type="text"
                 placeholder="Ingrese Número telefónico"
+                value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </Form.Group>
