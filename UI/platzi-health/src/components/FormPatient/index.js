@@ -105,7 +105,7 @@ const FormPatient = () => {
       )}
       <div className="d-flex flex-column align-items-center">
         <div className="form-container border border-1 rounded p-3">
-          <h2>Registrar Paciente</h2>
+          <h2>Datos Paciente</h2>
           <Form onSubmit={savePatient}>
             <Form.Group className="mb-3">
               <Form.Label>Cuenta Paciente</Form.Label>
@@ -155,7 +155,7 @@ const FormPatient = () => {
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
               <Form.Control
-                type="text"
+                type="email"
                 value={email}
                 placeholder="Ingrese Email"
                 onChange={(e) => setEmail(e.target.value)}
