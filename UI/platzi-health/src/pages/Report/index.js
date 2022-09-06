@@ -1,26 +1,48 @@
 import './Report.css';
 import { Button, Form } from 'react-bootstrap';
 import uploadIpfs from '../../utils/ipfs/ipfsProvider';
+import { useWeb3React } from '@web3-react/core';
+import { useState } from 'react';
+import usePlatziHealthContract from '../../hooks/usePlatziHealthContract';
+import moment from 'moment';
 
 const Report = () => {
+  const { account } = useWeb3React();
+  const platziHealthContract = usePlatziHealthContract();
+  const [id, setId] = useState('');
+  const [patientId, setPatientId] = useState('');
+  const [reason, setReason] = useState('');
+  const [diagnosis, setDiagnosis] = useState('');
+  const [report, setReport] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const addRecord = platziHealthContract.methods.addRecord;
+    const date = moment(new Date()).format("DD/MM/YYYY");
+
     const patientReport = {
-      'wallet':  event.target.wallet.value,
-      'motivo':  event.target.motivo.value,
-      'diagnostico': event.target.diagnostico.value,
-      'informe': event.target.informe.value 
+      'doctorId': account,
+      'patientId':  patientId,
+      'reason':  reason,
+      'diagnosis': diagnosis,
+      'report': report
     };
+
     const jsonString = JSON.stringify(patientReport);
     const fileReport = new Blob([jsonString],{type: 'application/json'});
+
     uploadIpfs(fileReport)
-      .then((hashIpfs) =>{
-        console.log(hashIpfs)
-      })
-      .catch(() => {
-        console.error("Error uploading file to ipfs server");
-      }); 
+      .then((hashFile) =>{
+        const patientRecord = [id,true,account,patientId,date,["application/json",hashFile]];
+
+        const record = addRecord(patientRecord,patientId).send({from: account, gas: 1500000 })
+          .then((receipt) => {
+            console.log(receipt);
+          })
+          .catch((error) => {
+            console.error(error);
+          })
+      });
   };
 
   return (
@@ -29,25 +51,44 @@ const Report = () => {
         <h2>Informe del Paciente</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
+            <Form.Label>Id</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Ingrese Id"
+              onChange={(e) => setId(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
             <Form.Label>Wallet Address</Form.Label>
             <Form.Control
               type="text"
-              name="wallet"
               placeholder="8ffv...5445"
-              readOnly
+              onChange={(e) => setPatientId(e.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Motivo</Form.Label>
-            <Form.Control type="text" name="motivo" placeholder="Ingrese motivo" />
+            <Form.Control
+              type="text"
+              placeholder="Ingrese motivo"
+              onChange={(e) => setReason(e.target.value)}
+            />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Diagnóstico</Form.Label>
-            <Form.Control type="text" name="diagnostico" placeholder="Ingrese diagnóstico" />
+            <Form.Control 
+              type="text" 
+              placeholder="Ingrese diagnóstico"
+              onChange={(e) => setDiagnosis(e.target.value)}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Informe</Form.Label>
-            <Form.Control as="textarea" rows={4} name="informe" />
+            <Form.Control
+              as="textarea"
+              rows={4}
+              onChange={(e) => setReport(e.target.value)}
+            />
           </Form.Group>
           <Button variant="primary" type="submit">
             Guardar
