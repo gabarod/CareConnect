@@ -153,8 +153,7 @@ contract Records {
 
     function addPatient(address _patientAddress, es.Patient memory _patient)
         public
-        onlyOwner
-        patientDoesNotExist(_patientAddress)
+        onlyHospital
         hospitalDoesNotExist(_patientAddress)
         notNull(_patientAddress)
     {
@@ -162,7 +161,12 @@ contract Records {
         Patients[_patientAddress] = _patient;
     }
 
-    function get_patient(address addr) public view returns (es.Patient memory) {
+    function get_patient(address addr)
+        public
+        view
+        patientDoesNotExist(addr)
+        returns (es.Patient memory)
+    {
         return (Patients[addr]);
     }
 
