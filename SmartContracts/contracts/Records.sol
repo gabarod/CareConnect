@@ -4,7 +4,7 @@ pragma solidity >=0.7.0 <0.9.0;
 
 import {EntitiesStructs as es} from "./EntitiesStructs.sol";
 
-contract Records{
+contract Records {
     // Mappings entities
     mapping(address => es.Doctor) Doctors;
     mapping(address => es.Patient) Patients;
@@ -176,7 +176,10 @@ contract Records{
 
     // PatientRecord Functions
 
-    function addRecord(es.PatientRecord memory _patientRecord, address _patientAddress)
+    function addRecord(
+        es.PatientRecord memory _patientRecord,
+        address _patientAddress
+    )
         public
         onlyOwner
         patientExist(_patientRecord.patientId)
@@ -231,5 +234,4 @@ contract Records{
     {
         hospitalToDoctorAccess[msg.sender] = doctor_id;
     }
-
 }
