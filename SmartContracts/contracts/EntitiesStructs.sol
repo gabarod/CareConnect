@@ -49,7 +49,6 @@ contract EntitiesStructs {
         address doctorId;
         address patientId;
         string date;
-        string diagnosis;//👀
-        File diagnosisFiles;
+        File diagnosisFile;
     }
 }
