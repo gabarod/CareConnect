@@ -67,6 +67,13 @@ contract Records {
         _;
     }
 
+    modifier onlyAuthorized() {
+        require(
+            Hospitals[msg.sender].isActive == true || Patients[msg.sender].isActive == true || Doctors[msg.sender].isActive == true,
+       "only authorized");
+        _;
+    }
+
     modifier hospitalDoesNotExist(address hospital) {
         require(!isHospital[hospital]);
         _;
@@ -198,9 +205,7 @@ contract Records {
         public
         view
         recordExists(_recordID, _patientAddress)
-        onlyHospital
-        onlyPatients
-        onlyDoctors
+        onlyAuthorized
         returns (es.PatientRecord memory)
     {
         return PatientRecords[_recordID][_patientAddress];
@@ -238,5 +243,14 @@ contract Records {
         onlyHospital
     {
         hospitalToDoctorAccess[msg.sender] = doctor_id;
+    }
+
+    function getPatientToRecord(address _patientAddress) 
+        public 
+        view 
+        onlyAuthorized
+        returns (uint256[] memory) 
+    {
+        return patientToRecord[_patientAddress];
     }
 }

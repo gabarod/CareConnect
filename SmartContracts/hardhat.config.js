@@ -1,5 +1,6 @@
 require("@nomicfoundation/hardhat-toolbox");
 require('dotenv').config();
+require('hardhat-abi-exporter');
 
 const projectId = process.env.INFURA_PROJECT_ID;
 const privateKey = process.env.DEPLOYER_SIGNER_PRIVATE_KEY;
@@ -15,4 +16,9 @@ module.exports = {
       ],
     },
   },
+  abiExporter: {
+    path: './abi',
+    pretty: false,
+    runOnCompile: true
+  }
 };
