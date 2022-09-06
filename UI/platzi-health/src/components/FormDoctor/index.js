@@ -11,32 +11,26 @@ const specializationList = [
   {
     name: 'Seleccione una opción',
     value: '',
-    select: true,
   },
   {
     name: 'Medicina General',
     value: 'General',
-    select: false,
   },
   {
     name: 'Cardiología',
     value: 'Cardiologia',
-    select: false,
   },
   {
     name: 'Cirugía General',
     value: 'Cirugia General',
-    select: false,
   },
   {
     name: 'Fisiatría',
     value: 'Fisiatria',
-    select: false,
   },
   {
     name: 'Traumatología',
     value: 'Traumatologia',
-    select: false,
   },
 ];
 
@@ -137,7 +131,7 @@ const FormDoctor = () => {
       )}
       <div className="d-flex flex-column align-items-center">
         <div className="form-container border border-1 rounded p-3">
-          <h2>Registrar Doctor(a)</h2>
+          <h2>Datos Doctor(a)</h2>
           <Form onSubmit={saveDoctor}>
             <Form.Group className="mb-3">
               <Form.Label>Cuenta</Form.Label>
@@ -187,7 +181,7 @@ const FormDoctor = () => {
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
               <Form.Control
-                type="text"
+                type="email"
                 value={email}
                 placeholder="Ingrese Email"
                 onChange={(e) => setEmail(e.target.value)}
@@ -218,7 +212,8 @@ const FormDoctor = () => {
                   <option
                     value={value}
                     onChange={(e) => setSpecialization(e.target.value)}
-                    selected={select}
+                    defaultValue ={value}
+                    key={value}
                   >
                     {name}
                   </option>

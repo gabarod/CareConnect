@@ -1,23 +1,22 @@
-import { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Tab, Tabs } from 'react-bootstrap';
 import FormDoctor from '../../components/FormDoctor';
 import FormPatient from '../../components/FormPatient';
 
 const Register = () => {
-  const [isFormDoctor, setIsFormDoctor] = useState(false);
-  const switchButton = (e) => {
-    setIsFormDoctor(e.target.checked);
-  };
   return (
-    <>
-      <Form.Check
-        type="switch"
-        id="custom-switch"
-        label="Registrar Doctor"
-        onChange={switchButton}
-      />
-      {isFormDoctor ? <FormDoctor /> : <FormPatient />}
-    </>
+    <Tabs
+      defaultActiveKey="doctor"
+      id="table-register"
+      className="mb-3 col-12 col-md-4 mx-auto"
+      fill
+    >
+      <Tab eventKey="doctor" title="Registrar Doctor(a)">
+        <FormDoctor />
+      </Tab>
+      <Tab eventKey="patient" title="Registrar Paciente">
+        <FormPatient />
+      </Tab>
+    </Tabs>
   );
 };
 
