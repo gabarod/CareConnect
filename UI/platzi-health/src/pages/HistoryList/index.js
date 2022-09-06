@@ -22,7 +22,7 @@ const HistoryList = () => {
   }
 
   const fetchReports = async (patientWallet) => {
-    const ids = await platziHealthContract.methods.getPatientRecordIds(patientWallet).call({from: account});
+    const ids = await platziHealthContract.methods.getPatientToRecord(patientWallet).call({from: account});
     let elements = [];
     ids.forEach(async (id) => {
       const record = await platziHealthContract.methods.getRecord(id,patientWallet).call({from: account});
