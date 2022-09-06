@@ -10,7 +10,7 @@ import InfoMessage from '../messages/InfoMessage';
 const FormPatient = () => {
   const { account } = useWeb3React();
   const platziHealthContract = usePlatziHealthContract();
-  const [patientAccount, setpatientAccount] = useState('');
+  const [patientAccount, setPatientAccount] = useState('');
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
@@ -18,7 +18,7 @@ const FormPatient = () => {
   const [email, setEmail] = useState('');
   const [countryCode, setCountryCode] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [doctorAccount, setDoctorAccount] = useState([]);
+  const [doctorAccount, setDoctorAccount] = useState('');
   const [showToastError, setShowToastError] = useState(false);
   const [showToastSuccess, setShowToastSuccess] = useState(false);
   const [showToastInfo, setShowToastInfo] = useState(false);
@@ -60,16 +60,16 @@ const FormPatient = () => {
       gender,
       email,
       countryCode,
-      phoneNumber
-    }
+      phoneNumber,
+    };
     const patientData = {
       personalInformation,
       isActive: true,
-      doctorAccount,
+      doctorAccessList: [doctorAccount],
     };
 
     await platziHealthContract.methods
-      .addHospital(patientAccount, patientData)
+      .addPatient(patientAccount, patientData)
       .send({
         from: account,
       })
@@ -82,6 +82,15 @@ const FormPatient = () => {
       .on('error', (error) => {
         toastError(`Transacción errónea ${error.message}`);
       });
+    setPatientAccount('');
+    setId('');
+    setName('');
+    setAge('');
+    setGender('');
+    setEmail('');
+    setCountryCode('');
+    setPhoneNumber('');
+    setDoctorAccount('');
   };
   return (
     <>
@@ -99,36 +108,85 @@ const FormPatient = () => {
           <h2>Registrar Paciente</h2>
           <Form onSubmit={savePatient}>
             <Form.Group className="mb-3">
-              <Form.Label>Wallet Account</Form.Label>
-              <Form.Control type="text" placeholder="Ingrese account" />
+              <Form.Label>Cuenta Paciente</Form.Label>
+              <Form.Control
+                type="text"
+                value={patientAccount}
+                placeholder="Ingrese Cuenta del paciente"
+                onChange={(e) => setPatientAccount(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>id</Form.Label>
-              <Form.Control type="text" placeholder="Ingrese Id" />
+              <Form.Control
+                type="text"
+                value={id}
+                placeholder="Ingrese Id"
+                onChange={(e) => setId(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Nombre</Form.Label>
-              <Form.Control type="text" placeholder="Ingrese Nombre" />
+              <Form.Control
+                type="text"
+                value={name}
+                placeholder="Ingrese Nombre"
+                onChange={(e) => setName(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Edad</Form.Label>
-              <Form.Control type="text" placeholder="Ingrese Edad" />
+              <Form.Control
+                type="text"
+                value={age}
+                placeholder="Ingrese Edad"
+                onChange={(e) => setAge(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Género</Form.Label>
-              <Form.Control type="text" placeholder="Ingrese Género" />
+              <Form.Control
+                type="text"
+                value={gender}
+                placeholder="Ingrese Género"
+                onChange={(e) => setGender(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="text" placeholder="Ingrese Email" />
+              <Form.Control
+                type="text"
+                value={email}
+                placeholder="Ingrese Email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Código País</Form.Label>
-              <Form.Control type="text" placeholder="Ingrese Código" />
+              <Form.Control
+                type="text"
+                value={countryCode}
+                placeholder="Ingrese Código"
+                onChange={(e) => setCountryCode(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Número Telefónico</Form.Label>
-              <Form.Control type="text" placeholder="Ingrese Telefóno" />
+              <Form.Control
+                type="text"
+                value={phoneNumber}
+                placeholder="Ingrese Telefóno"
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Cuenta de Doctor asignado</Form.Label>
+              <Form.Control
+                type="text"
+                value={doctorAccount}
+                placeholder="Ingrese Cuenta del doctor"
+                onChange={(e) => setDoctorAccount(e.target.value)}
+              />
             </Form.Group>
             <Button variant="primary" type="submit">
               Guardar
