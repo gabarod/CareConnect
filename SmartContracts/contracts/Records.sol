@@ -12,7 +12,7 @@ contract Records {
 
     // Mapping Patient Records
     mapping(uint256 => mapping(address => es.PatientRecord)) PatientRecords;
-    mapping(address => uint256) patientToRecord;
+    mapping(address => uint256[]) patientToRecord;
 
     // Mapping Access
     mapping(address => address) patientToDoctorAccess;
@@ -188,7 +188,7 @@ contract Records {
         recordCount += 1;
         PatientRecords[recordCount][_patientRecord.patientId] = _patientRecord;
         //add record patient relationship
-        patientToRecord[_patientAddress] = recordCount;
+        patientToRecord[_patientAddress].push(recordCount);
     }
 
     function getRecord(uint256 _recordID, address _patientAddress)
