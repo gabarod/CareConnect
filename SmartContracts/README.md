@@ -1,8 +1,7 @@
-# Sample Hardhat Project
+# PlatziHealth Project
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+This Dapp seeks to help maintain the availability of medical records in a decentralized and agnostic way of any institution, the data belonging to patients, these giving access to their information to medical institutions or doctors by which they will be treated.
 
-Try running some of the following tasks:
 
 ```shell
 npx hardhat help
