@@ -214,7 +214,7 @@ contract Records {
     // Doctors Functions
     function addDoctor(address _doctorAddress, es.Doctor memory _doctor)
         public
-        onlyOwner
+        onlyHospitals
         doctorDoesNotExist(_doctorAddress)
         notNull(_doctorAddress)
     {
