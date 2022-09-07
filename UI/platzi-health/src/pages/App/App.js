@@ -8,7 +8,6 @@ import Report from '../Report';
 import HistoryList from '../HistoryList';
 import History from '../History';
 import Hospital from '../Hospital';
-import { useState } from 'react';
 import Login from '../Login';
 
 function App() {

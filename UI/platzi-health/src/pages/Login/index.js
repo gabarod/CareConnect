@@ -1,4 +1,4 @@
-import { Container, Row, Stack } from 'react-bootstrap';
+import { Container, Stack } from 'react-bootstrap';
 import './styles.css';
 import Wallet from '../../components/Wallet';
 
