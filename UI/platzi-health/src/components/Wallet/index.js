@@ -42,7 +42,7 @@ export default function Wallet() {
   }, []);
 
   return (
-    <Stack gap={2}>
+    <>
       {active ? (
         <Button onClick={disconnect} variant="secondary">
           {truncatedAddress}
@@ -52,6 +52,6 @@ export default function Wallet() {
           Connect to MetaMask
         </Button>
       )}
-    </Stack>
+    </>
   );
 }
