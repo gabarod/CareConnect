@@ -1,15 +1,15 @@
 import NavLink from './navlink';
 import Footer from './footer';
-import { Container } from 'react-bootstrap';
+import { Container, Stack } from 'react-bootstrap';
 
 const MainLayout = ({ children }) => {
   return (
     <>
-      <Container fluid>
+      <Stack className='vh-100 justify-content-between'>
         <NavLink />
-        {children}
+        <Container fluid>{children}</Container>
         <Footer />
-      </Container>
+      </Stack>
     </>
   );
 };
