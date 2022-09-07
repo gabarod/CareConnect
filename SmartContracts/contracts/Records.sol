@@ -6,17 +6,19 @@ import {EntitiesStructs as es} from "./EntitiesStructs.sol";
 
 contract Records {
     // Mappings entities
-    mapping(address => es.Doctor) Doctors;
-    mapping(address => es.Patient) Patients;
-    mapping(address => es.Hospital) Hospitals;
+    mapping(address => es.Doctor) private Doctors;
+    mapping(address => es.Patient) private Patients;
+    mapping(address => es.Hospital) private Hospitals;
 
     // Mapping Patient Records
-    mapping(uint256 => mapping(address => es.PatientRecord)) PatientRecords;
-    mapping(address => uint256[]) patientToRecord;
+    mapping(address => mapping(uint256 => es.PatientRecord))
+        private PatientRecords;
+    mapping(address => mapping(address => uint256[]))
+        private RecordsIdsByDoctor;
+    mapping(address => uint256) private NumberOfPatientRecords;
 
     // Mapping Access
-    mapping(address => address) patientToDoctorAccess;
-    mapping(address => address) hospitalToDoctorAccess;
+    mapping(address => address) private AccessList;
 
     // Mapping Roles
     mapping(address => bool) public isPatient;
@@ -69,8 +71,11 @@ contract Records {
 
     modifier onlyAuthorized() {
         require(
-            Hospitals[msg.sender].isActive == true || Patients[msg.sender].isActive == true || Doctors[msg.sender].isActive == true,
-       "only authorized");
+            Hospitals[msg.sender].isActive == true ||
+                Patients[msg.sender].isActive == true ||
+                Doctors[msg.sender].isActive == true,
+            "only authorized"
+        );
         _;
     }
 
@@ -121,8 +126,8 @@ contract Records {
     }
 
     modifier recordExists(uint256 recordId, address _patientAddress) {
-        es.PatientRecord memory _record = PatientRecords[recordId][
-            _patientAddress
+        es.PatientRecord memory _record = PatientRecords[_patientAddress][
+            recordId
         ];
         require(_record.isActive);
         _;
@@ -134,6 +139,8 @@ contract Records {
         public
         onlyOwner
         hospitalDoesNotExist(_hospitalAddress)
+        doctorDoesNotExist(_hospitalAddress)
+        patientDoesNotExist(_hospitalAddress)
         notNull(_hospitalAddress)
     {
         isHospital[_hospitalAddress] = true;
@@ -161,6 +168,8 @@ contract Records {
     function addPatient(address _patientAddress, es.Patient memory _patient)
         public
         onlyHospital
+        hospitalDoesNotExist(_patientAddress)
+        doctorDoesNotExist(_patientAddress)
         patientDoesNotExist(_patientAddress)
         notNull(_patientAddress)
     {
@@ -168,11 +177,7 @@ contract Records {
         Patients[_patientAddress] = _patient;
     }
 
-    function get_patient(address addr)
-        public
-        view
-        returns (es.Patient memory)
-    {
+    function get_patient(address addr) public view returns (es.Patient memory) {
         return (Patients[addr]);
     }
 
@@ -186,19 +191,21 @@ contract Records {
 
     // PatientRecord Functions
 
-    function addRecord(
-        es.PatientRecord memory _patientRecord,
-        address _patientAddress
-    )
+    function addRecord(es.PatientRecord memory _patientRecord)
         public
         onlyOwner
         patientExist(_patientRecord.patientId)
         hospitalExist(_patientRecord.doctorId)
     {
         recordCount += 1;
-        PatientRecords[recordCount][_patientRecord.patientId] = _patientRecord;
-        //add record patient relationship
-        patientToRecord[_patientAddress].push(recordCount);
+        NumberOfPatientRecords[_patientRecord.patientId] = ++(
+            NumberOfPatientRecords[_patientRecord.patientId]
+        );
+        PatientRecords[_patientRecord.patientId][
+            (NumberOfPatientRecords[_patientRecord.patientId])
+        ] = _patientRecord;
+        RecordsIdsByDoctor[_patientRecord.doctorId][_patientRecord.patientId]
+            .push(NumberOfPatientRecords[_patientRecord.patientId]);
     }
 
     function getRecord(uint256 _recordID, address _patientAddress)
@@ -208,14 +215,16 @@ contract Records {
         onlyAuthorized
         returns (es.PatientRecord memory)
     {
-        return PatientRecords[_recordID][_patientAddress];
+        return PatientRecords[_patientAddress][_recordID];
     }
 
     // Doctors Functions
     function addDoctor(address _doctorAddress, es.Doctor memory _doctor)
         public
         onlyHospitals
+        hospitalDoesNotExist(_doctorAddress)
         doctorDoesNotExist(_doctorAddress)
+        patientDoesNotExist(_doctorAddress)
         notNull(_doctorAddress)
     {
         isDoctor[_doctorAddress] = true;
@@ -235,22 +244,13 @@ contract Records {
     }
 
     function PatientGrantAccessToDoctor(address doctor_id) public onlyPatient {
-        patientToDoctorAccess[msg.sender] = doctor_id;
+        AccessList[msg.sender] = doctor_id;
     }
 
     function HospitalGrantAccessToDoctor(address doctor_id)
         public
         onlyHospital
     {
-        hospitalToDoctorAccess[msg.sender] = doctor_id;
-    }
-
-    function getPatientToRecord(address _patientAddress) 
-        public 
-        view 
-        onlyAuthorized
-        returns (uint256[] memory) 
-    {
-        return patientToRecord[_patientAddress];
+        AccessList[msg.sender] = doctor_id;
     }
 }
