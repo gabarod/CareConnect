@@ -193,9 +193,9 @@ contract Records {
 
     function addRecord(es.PatientRecord memory _patientRecord)
         public
-        onlyOwner
+        onlyDoctors
         patientExist(_patientRecord.patientId)
-        hospitalExist(_patientRecord.doctorId)
+        doctorExist(_patientRecord.doctorId)
     {
         recordCount += 1;
         NumberOfPatientRecords[_patientRecord.patientId] = ++(
@@ -216,6 +216,21 @@ contract Records {
         returns (es.PatientRecord memory)
     {
         return PatientRecords[_patientAddress][_recordID];
+    }
+
+    function getAllRecords(address _patientAddress)
+        public
+        view
+        onlyAuthorized
+        returns (es.PatientRecord[] memory)
+    {
+        es.PatientRecord[] memory _records = new es.PatientRecord[](
+            NumberOfPatientRecords[_patientAddress]
+        );
+        for (uint256 i = 0; i < NumberOfPatientRecords[_patientAddress]; i++) {
+            _records[i] = (PatientRecords[_patientAddress][i + 1]);
+        }
+        return _records;
     }
 
     // Doctors Functions
