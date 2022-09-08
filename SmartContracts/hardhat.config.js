@@ -1,6 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
 require('dotenv').config();
 require('hardhat-abi-exporter');
+require('hardhat-test-utils');
 
 const projectId = process.env.INFURA_PROJECT_ID;
 const privateKey = process.env.DEPLOYER_SIGNER_PRIVATE_KEY;
