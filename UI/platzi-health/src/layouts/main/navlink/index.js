@@ -14,9 +14,10 @@ const Links = [
 
 function NavLink() {
   return (
-    <Navbar bg="light" variant="light" className='mb-5'>
-      <Container>
+    <Navbar bg="light" expand="lg">
+      <Container fluid>
         <Navbar.Brand href="#home">
+          {' '}
           <img
             alt=""
             src="./images/platzi-health-logo.png"
@@ -25,16 +26,23 @@ function NavLink() {
             className="d-inline-block align-top"
           />
         </Navbar.Brand>
-        <Nav className="me-auto">
-          {Links.map(({ name, to }) => (
-            <Nav.Link key={name} href={to}>
-              {name}
-            </Nav.Link>
-          ))}
-        </Nav>
-      </Container>
-      <Container className='w-25'>
-        <Wallet/>
+        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+          <Nav
+            className="me-auto my-2 my-lg-0"
+            style={{ maxHeight: '100px' }}
+            navbarScroll
+          >
+            {Links.map(({ name, to }) => (
+              <Nav.Link key={name} href={to}>
+                {name}
+              </Nav.Link>
+            ))}
+          </Nav>
+          <div className="d-flex justify-content-lg-end">
+            <Wallet />
+          </div>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
