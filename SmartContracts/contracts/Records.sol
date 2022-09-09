@@ -133,6 +133,10 @@ contract Records {
         _;
     }
 
+    function isManager(address _address) public view returns (bool){
+        return _address == manager;
+    }
+
     // Hospital Functions
 
     function addHospital(address _hospitalAddress, es.Hospital memory _hospital)
@@ -268,4 +272,5 @@ contract Records {
     {
         AccessList[msg.sender] = doctor_id;
     }
+
 }
