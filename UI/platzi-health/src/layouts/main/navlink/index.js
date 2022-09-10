@@ -23,7 +23,7 @@ function NavLink() {
             src="./images/platzi-health-logo.png"
             width="80"
             height="40"
-            className="d-inline-block align-top"
+            className="d-inline-block align-baseline"
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
