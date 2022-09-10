@@ -11,9 +11,7 @@ const Hospital = () => {
   const { account } = useWeb3React();
   const platziHealthContract = usePlatziHealthContract();
   const [hospitalAccount, setHospitalAccount] = useState('');
-  const [id, setId] = useState('');
   const [name, setName] = useState('');
-  const [hospitalAddress, setHospitalAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [showToastError, setShowToastError] = useState(false);
   const [showToastSuccess, setShowToastSuccess] = useState(false);
@@ -50,10 +48,8 @@ const Hospital = () => {
   const saveHospital = async (event) => {
     event.preventDefault();
     const hospitalData = {
-      id,
       isActive: true,
       name,
-      hospitalAddress,
       phoneNumber,
     };
 
@@ -72,9 +68,7 @@ const Hospital = () => {
         toastError(`Transacción errónea ${error.message}`);
       });
     setHospitalAccount('');
-    setId('');
     setName('');
-    setHospitalAddress('');
     setPhoneNumber('');
   };
 
@@ -103,30 +97,12 @@ const Hospital = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Id</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Ingrese Id"
-                value={id}
-                onChange={(e) => setId(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
               <Form.Label>Nombre</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Ingrese nombre"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Dirección</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Ingrese dirección"
-                value={hospitalAddress}
-                onChange={(e) => setHospitalAddress(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3">
