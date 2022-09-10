@@ -1,6 +1,6 @@
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import { useEffect } from 'react';
-import { injected } from '../../utils/connector/connector';
+import { connector } from '../../utils/connector/connector';
 import { Button } from 'react-bootstrap';
 import useTruncatedAddress from '../../hooks/useTruncatedAddress';
 import useAuth from '../../hooks/useAuth';
