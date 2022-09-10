@@ -1,22 +1,15 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import Wallet from '../../../components/Wallet';
-
-const Links = [
-  {
-    name: 'Inicio',
-    to: '/',
-  },
-  {
-    name: 'Registro',
-    to: '/registro',
-  },
-];
+import useNavLinks from '../../../hooks/useNavLinks';
+import { Link as RouterLink }  from 'react-router-dom';
 
 function NavLink() {
+  const { Links } = useNavLinks();
+
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" className='mb-5'>
       <Container fluid>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand as={RouterLink} to="/">
           {' '}
           <img
             alt=""
@@ -34,7 +27,7 @@ function NavLink() {
             navbarScroll
           >
             {Links.map(({ name, to }) => (
-              <Nav.Link key={name} href={to}>
+              <Nav.Link as={RouterLink} key={name} to={to}>
                 {name}
               </Nav.Link>
             ))}

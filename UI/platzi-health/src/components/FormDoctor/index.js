@@ -6,6 +6,7 @@ import { useState } from 'react';
 import ErrorMessage from '../messages/ErrorMessage';
 import SuccessMessage from '../messages/SuccessMessage';
 import InfoMessage from '../messages/InfoMessage';
+import Gender from '../Gender';
 
 const specializationList = [
   {
@@ -38,7 +39,6 @@ const FormDoctor = () => {
   const { account } = useWeb3React();
   const platziHealthContract = usePlatziHealthContract();
   const [doctorAccount, setDoctorAccount] = useState('');
-  const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
@@ -78,10 +78,13 @@ const FormDoctor = () => {
     setShowToastInfo(!showToastInfo);
   };
 
+  function handleChange(event) {
+    setGender(event.target.value);
+  }
+
   const saveDoctor = async (event) => {
     event.preventDefault();
     const personalInformation = {
-      id,
       name,
       age,
       gender,
@@ -110,7 +113,6 @@ const FormDoctor = () => {
         toastError(`Transacción errónea ${error.message}`);
       });
     setDoctorAccount('');
-    setId('');
     setName('');
     setAge('');
     setGender('');
@@ -143,15 +145,6 @@ const FormDoctor = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>id</Form.Label>
-              <Form.Control
-                type="text"
-                value={id}
-                placeholder="Ingrese Id"
-                onChange={(e) => setId(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
               <Form.Label>Nombre</Form.Label>
               <Form.Control
                 type="text"
@@ -171,12 +164,7 @@ const FormDoctor = () => {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Género</Form.Label>
-              <Form.Control
-                type="text"
-                value={gender}
-                placeholder="Ingrese Género"
-                onChange={(e) => setGender(e.target.value)}
-              />
+              <Gender handleChange={handleChange}/>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
