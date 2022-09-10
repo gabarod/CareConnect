@@ -1,6 +1,6 @@
 const PlatziHealthArtifacts = {
   address: {
-   4: '0xa074A46DFA048b5104752A7801cAAf44eb62915A'
+   4: '0x793F294FD5EaE242D3c8B012831048bbc04cA8f4'
   },
   abi: [
     {
@@ -44,22 +44,12 @@ const PlatziHealthArtifacts = {
         {
           "components": [
             {
-              "internalType": "string",
-              "name": "specialization",
-              "type": "string"
-            },
-            {
               "internalType": "bool",
               "name": "isActive",
               "type": "bool"
             },
             {
               "components": [
-                {
-                  "internalType": "uint128",
-                  "name": "id",
-                  "type": "uint128"
-                },
                 {
                   "internalType": "string",
                   "name": "name",
@@ -94,6 +84,11 @@ const PlatziHealthArtifacts = {
               "internalType": "struct EntitiesStructs.PersonalInformation",
               "name": "personalInformation",
               "type": "tuple"
+            },
+            {
+              "internalType": "string",
+              "name": "specialization",
+              "type": "string"
             }
           ],
           "internalType": "struct EntitiesStructs.Doctor",
@@ -116,11 +111,6 @@ const PlatziHealthArtifacts = {
         {
           "components": [
             {
-              "internalType": "uint128",
-              "name": "id",
-              "type": "uint128"
-            },
-            {
               "internalType": "bool",
               "name": "isActive",
               "type": "bool"
@@ -128,11 +118,6 @@ const PlatziHealthArtifacts = {
             {
               "internalType": "string",
               "name": "name",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "hospitalAddress",
               "type": "string"
             },
             {
@@ -161,12 +146,12 @@ const PlatziHealthArtifacts = {
         {
           "components": [
             {
+              "internalType": "bool",
+              "name": "isActive",
+              "type": "bool"
+            },
+            {
               "components": [
-                {
-                  "internalType": "uint128",
-                  "name": "id",
-                  "type": "uint128"
-                },
                 {
                   "internalType": "string",
                   "name": "name",
@@ -201,16 +186,6 @@ const PlatziHealthArtifacts = {
               "internalType": "struct EntitiesStructs.PersonalInformation",
               "name": "personalInformation",
               "type": "tuple"
-            },
-            {
-              "internalType": "bool",
-              "name": "isActive",
-              "type": "bool"
-            },
-            {
-              "internalType": "address[]",
-              "name": "doctorAccessList",
-              "type": "address[]"
             }
           ],
           "internalType": "struct EntitiesStructs.Patient",
@@ -227,11 +202,6 @@ const PlatziHealthArtifacts = {
       "inputs": [
         {
           "components": [
-            {
-              "internalType": "uint128",
-              "name": "id",
-              "type": "uint128"
-            },
             {
               "internalType": "bool",
               "name": "isActive",
@@ -253,8 +223,63 @@ const PlatziHealthArtifacts = {
               "type": "string"
             },
             {
+              "components": [
+                {
+                  "internalType": "string",
+                  "name": "typeFile",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "hashFile",
+                  "type": "string"
+                }
+              ],
+              "internalType": "struct EntitiesStructs.File",
+              "name": "diagnosisFile",
+              "type": "tuple"
+            }
+          ],
+          "internalType": "struct EntitiesStructs.PatientRecord",
+          "name": "_patientRecord",
+          "type": "tuple"
+        }
+      ],
+      "name": "addRecord",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_patientAddress",
+          "type": "address"
+        }
+      ],
+      "name": "getAllRecords",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bool",
+              "name": "isActive",
+              "type": "bool"
+            },
+            {
+              "internalType": "address",
+              "name": "doctorId",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "patientId",
+              "type": "address"
+            },
+            {
               "internalType": "string",
-              "name": "diagnosis",
+              "name": "date",
               "type": "string"
             },
             {
@@ -271,23 +296,16 @@ const PlatziHealthArtifacts = {
                 }
               ],
               "internalType": "struct EntitiesStructs.File",
-              "name": "diagnosisFiles",
+              "name": "diagnosisFile",
               "type": "tuple"
             }
           ],
-          "internalType": "struct EntitiesStructs.PatientRecord",
-          "name": "_patientRecord",
-          "type": "tuple"
-        },
-        {
-          "internalType": "address",
-          "name": "_patientAddress",
-          "type": "address"
+          "internalType": "struct EntitiesStructs.PatientRecord[]",
+          "name": "",
+          "type": "tuple[]"
         }
       ],
-      "name": "addRecord",
-      "outputs": [],
-      "stateMutability": "nonpayable",
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -308,11 +326,6 @@ const PlatziHealthArtifacts = {
         {
           "components": [
             {
-              "internalType": "uint128",
-              "name": "id",
-              "type": "uint128"
-            },
-            {
               "internalType": "bool",
               "name": "isActive",
               "type": "bool"
@@ -333,11 +346,6 @@ const PlatziHealthArtifacts = {
               "type": "string"
             },
             {
-              "internalType": "string",
-              "name": "diagnosis",
-              "type": "string"
-            },
-            {
               "components": [
                 {
                   "internalType": "string",
@@ -351,7 +359,7 @@ const PlatziHealthArtifacts = {
                 }
               ],
               "internalType": "struct EntitiesStructs.File",
-              "name": "diagnosisFiles",
+              "name": "diagnosisFile",
               "type": "tuple"
             }
           ],
@@ -376,22 +384,12 @@ const PlatziHealthArtifacts = {
         {
           "components": [
             {
-              "internalType": "string",
-              "name": "specialization",
-              "type": "string"
-            },
-            {
               "internalType": "bool",
               "name": "isActive",
               "type": "bool"
             },
             {
               "components": [
-                {
-                  "internalType": "uint128",
-                  "name": "id",
-                  "type": "uint128"
-                },
                 {
                   "internalType": "string",
                   "name": "name",
@@ -426,6 +424,11 @@ const PlatziHealthArtifacts = {
               "internalType": "struct EntitiesStructs.PersonalInformation",
               "name": "personalInformation",
               "type": "tuple"
+            },
+            {
+              "internalType": "string",
+              "name": "specialization",
+              "type": "string"
             }
           ],
           "internalType": "struct EntitiesStructs.Doctor",
@@ -449,11 +452,6 @@ const PlatziHealthArtifacts = {
         {
           "components": [
             {
-              "internalType": "uint128",
-              "name": "id",
-              "type": "uint128"
-            },
-            {
               "internalType": "bool",
               "name": "isActive",
               "type": "bool"
@@ -461,11 +459,6 @@ const PlatziHealthArtifacts = {
             {
               "internalType": "string",
               "name": "name",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "hospitalAddress",
               "type": "string"
             },
             {
@@ -495,12 +488,12 @@ const PlatziHealthArtifacts = {
         {
           "components": [
             {
+              "internalType": "bool",
+              "name": "isActive",
+              "type": "bool"
+            },
+            {
               "components": [
-                {
-                  "internalType": "uint128",
-                  "name": "id",
-                  "type": "uint128"
-                },
                 {
                   "internalType": "string",
                   "name": "name",
@@ -535,16 +528,6 @@ const PlatziHealthArtifacts = {
               "internalType": "struct EntitiesStructs.PersonalInformation",
               "name": "personalInformation",
               "type": "tuple"
-            },
-            {
-              "internalType": "bool",
-              "name": "isActive",
-              "type": "bool"
-            },
-            {
-              "internalType": "address[]",
-              "name": "doctorAccessList",
-              "type": "address[]"
             }
           ],
           "internalType": "struct EntitiesStructs.Patient",
@@ -583,6 +566,25 @@ const PlatziHealthArtifacts = {
         }
       ],
       "name": "isHospital",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_address",
+          "type": "address"
+        }
+      ],
+      "name": "isManager",
       "outputs": [
         {
           "internalType": "bool",
