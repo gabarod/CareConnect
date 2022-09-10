@@ -7,7 +7,7 @@ const Home = () => {
     <>
       <Container id="home">
         <Row className="g-0 h-100">
-          <Col className="col-lg-6 col-12 d-flex">
+          <Col className="col-lg-6 col-12">
             <div className="content mx-auto align-self-center px-4 my-5">
               <small className="d-block text-primary mb-3">
                 <span className="badge bg-primary me-2">Versión beta</span>
@@ -26,7 +26,12 @@ const Home = () => {
               </a>
               <div className="d-flex">
                 <div className="d-flex me-4">
-                  <img src="./images/medical.jpg" className="me-3" alt="logo" />
+                  <img
+                    height={"200px"}
+                    src="./images/medical.jpg"
+                    className="me-3"
+                    alt="logo"
+                  />
                   <div>
                     {/* <small>Próximamente en</small>
                     <p className="fw-bold mb-0">App Store</p> */}
@@ -35,7 +40,7 @@ const Home = () => {
               </div>
             </div>
           </Col>
-          <Col className="col-lg-6 col-12 d-flex bg-light">
+          <Col className="col-lg-6 col-12 bg-light">
             <div className="content mx-auto align-self-center px-4 my-5">
               <img src="./images/nurse.jpg" className="img-fluid" alt="phone" />
             </div>
