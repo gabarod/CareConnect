@@ -48,7 +48,7 @@ function App() {
           >
             <Route path="/informe" element={<Report />} />
             <Route path="/historiales" element={<HistoryList />} />
-            <Route path="/historial/:id" element={<History />} />
+            <Route path="/historial" element={<History />} />
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Owner]} />}>

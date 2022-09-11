@@ -9,7 +9,6 @@ import moment from 'moment';
 const Report = () => {
   const { account } = useWeb3React();
   const platziHealthContract = usePlatziHealthContract();
-  const [id, setId] = useState('');
   const [patientId, setPatientId] = useState('');
   const [reason, setReason] = useState('');
   const [diagnosis, setDiagnosis] = useState('');
@@ -18,31 +17,37 @@ const Report = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const addRecord = platziHealthContract.methods.addRecord;
-    const date = moment(new Date()).format("DD/MM/YYYY");
+    const date = moment(new Date()).format('DD/MM/YYYY');
 
     const patientReport = {
-      'doctorId': account,
-      'patientId':  patientId,
-      'reason':  reason,
-      'diagnosis': diagnosis,
-      'report': report
+      doctorId: account,
+      patientId: patientId,
+      reason: reason,
+      diagnosis: diagnosis,
+      report: report,
     };
 
     const jsonString = JSON.stringify(patientReport);
-    const fileReport = new Blob([jsonString],{type: 'application/json'});
+    const fileReport = new Blob([jsonString], { type: 'application/json' });
 
-    uploadIpfs(fileReport)
-      .then((hashFile) =>{
-        const patientRecord = [id,true,account,patientId,date,["application/json",hashFile]];
+    uploadIpfs(fileReport).then((hashFile) => {
+      const patientRecord = {
+        isActive: true,
+        doctorId: account,
+        patientId,
+        date,
+        diagnosisFile: {typeFile: 'application/json', hashFile},
+      };
 
-        const record = addRecord(patientRecord,patientId).send({from: account, gas: 1500000 })
-          .then((receipt) => {
-            console.log(receipt);
-          })
-          .catch((error) => {
-            console.error(error);
-          })
-      });
+      const record = addRecord(patientRecord)
+        .send({ from: account, gas: 1500000 })
+        .then((receipt) => {
+          console.log(receipt);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
   };
 
   return (
@@ -50,14 +55,6 @@ const Report = () => {
       <div className="form-container border border-1 rounded p-3">
         <h2>Informe del Paciente</h2>
         <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label>Id</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Ingrese Id"
-              onChange={(e) => setId(e.target.value)}
-            />
-          </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Wallet Address</Form.Label>
             <Form.Control
@@ -76,8 +73,8 @@ const Report = () => {
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Diagnóstico</Form.Label>
-            <Form.Control 
-              type="text" 
+            <Form.Control
+              type="text"
               placeholder="Ingrese diagnóstico"
               onChange={(e) => setDiagnosis(e.target.value)}
             />
