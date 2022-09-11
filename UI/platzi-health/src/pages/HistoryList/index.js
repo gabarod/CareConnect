@@ -25,14 +25,11 @@ const HistoryList = () => {
   };
 
   const fetchReports = async (patientWallet) => {
-    const ids = await platziHealthContract.methods
-      .getPatientToRecord(patientWallet)
+    const records = await platziHealthContract.methods
+      .getAllRecords(patientWallet)
       .call({ from: account });
     let elements = [];
-    ids.forEach(async (id) => {
-      const record = await platziHealthContract.methods
-        .getRecord(id, patientWallet)
-        .call({ from: account });
+    records.forEach(async (record) => {
       const diagnosisFile = record.diagnosisFile;
       const ipfsUrl =
         'https://ipfs.cryptostore.com.bo/ipfs/' + diagnosisFile.hashFile;
@@ -45,21 +42,22 @@ const HistoryList = () => {
           report['date'] = record.date;
           console.log(report);
           elements.push(report);
-          setDiagnosis(elements);
+          setDiagnosis((diagnosis) => {
+            return [...elements];
+          });
         });
     });
   };
 
   return (
     <Stack className="wm-75 mx-auto">
-      {
-        !isPatient &&
-          <div className="d-flex align-items-center justify-content-end mb-2">
-            <Button variant="primary" onClick={toDiagnosisPage}>
-              Agregar Diagnóstico
-            </Button>
-          </div>
-      }
+      {!isPatient && (
+        <div className="d-flex align-items-center justify-content-end mb-2">
+          <Button variant="primary" onClick={toDiagnosisPage}>
+            Agregar Diagnóstico
+          </Button>
+        </div>
+      )}
       <Form>
         <Form.Group>
           <Form.Label>Paciente</Form.Label>
