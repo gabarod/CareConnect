@@ -13,8 +13,8 @@ function NavLink() {
           {' '}
           <img
             alt=""
-            src="./images/platzi-health-logo.png"
-            width="80"
+            src="./images/care-connect-logo.png"
+            width="130"
             height="40"
             className="d-inline-block align-baseline"
           />

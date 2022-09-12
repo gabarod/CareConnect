@@ -5,7 +5,7 @@ const Footer = () => {
     <Container className="border-top py-4">
       <Row className="row">
         <Col className="col-lg-6 col-md-12">
-          <small>2022. Platzi Health. Todos los derechos reservados</small>
+          <small>2022. Care Connect. Todos los derechos reservados</small>
         </Col>
         <Col className="col-lg-6 col-md-12">
           <ul className="list-inline text-lg-end">
