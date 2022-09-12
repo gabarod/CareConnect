@@ -9,7 +9,7 @@ Actualmente la accesibilidad de historiales médicos es difícil ya sea porque n
 
 ## Solución
 
-Implementar una Dapp que posibilite al paciente obtener historiales médicos de forma descentralizada, otorgandole transparencia, pertenencia y disponibilidad de sus datos. Asi mismo facilitarle a profesionales de la medicina una consulta oportuna de los datos.
+Implementar una Dapp que posibilite al paciente obtener historiales médicos de forma descentralizada, otorgandole transparencia, pertenencia y disponibilidad de sus datos. Asi mismo facilitarle a profesionales de la medicina una consulta oportuna de estos.
 
 ## ¿Cómo funciona?
 
@@ -44,7 +44,7 @@ Implementar una Dapp que posibilite al paciente obtener historiales médicos de 
   yarn install
 ```
 
-## Harhat Installation
+## Hardhat Installation
 
 ```bash
   npm install
