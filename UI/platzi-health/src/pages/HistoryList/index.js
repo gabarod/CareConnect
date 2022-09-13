@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { MdRemoveRedEye } from 'react-icons/md';
 import { useWeb3React } from '@web3-react/core';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import usePlatziHealthContract from '../../hooks/usePlatziHealthContract';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
@@ -13,8 +13,16 @@ const HistoryList = () => {
   const { account } = useWeb3React();
   const platziHealthContract = usePlatziHealthContract();
   const [diagnosis, setDiagnosis] = useState([]);
+  const [patient, setPatient] = useState(false);
   const navigate = useNavigate();
   const isPatient = auth.roles[0] === 4;
+  
+  if(platziHealthContract) {
+    platziHealthContract.methods.isPatient(account).call({from: account})
+     .then((res) => {
+       setPatient(res);
+     });   
+  }
 
   const toDiagnosisPage = () => {
     navigate('/informe');
@@ -49,6 +57,13 @@ const HistoryList = () => {
     });
   };
 
+  useEffect(() => {
+    if(patient) {
+        fetchReports(account)
+    } 
+  },[patient]);
+
+
   return (
     <Stack className="wm-75 mx-auto">
       {!isPatient && (
@@ -58,16 +73,20 @@ const HistoryList = () => {
           </Button>
         </div>
       )}
-      <Form>
-        <Form.Group>
-          <Form.Label>Paciente</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese wallet de paciente"
-            onChange={(e) => fetchReports(e.target.value)}
-          />
-        </Form.Group>
-      </Form>
+      {(() => {
+        if(!patient) {
+          return <Form>
+           <Form.Group>
+             <Form.Label>Paciente</Form.Label>
+             <Form.Control
+               type="text"
+               placeholder="Ingrese wallet de paciente"
+               onChange={(e) => fetchReports(e.target.value)}
+             />
+           </Form.Group>
+          </Form> 
+        }
+      })()}
       <div className="d-flex flex-column align-items-center">
         <Card style={{ width: '100%' }}>
           <ListGroup variant="flush">
