@@ -21,7 +21,7 @@ const Home = () => {
                 Ahora puedes tener tu historial médico 100% disponible y con
                 control total de quén accede a tu información.
               </p>
-              <a href="#" className="btn btn-primary mb-5">
+              <a href="/login" className="btn btn-primary mb-5">
                 Accede hoy
               </a>
               <div className="d-flex">
@@ -119,7 +119,7 @@ const Home = () => {
                   con la información del profesional de la salud que te atendiò
                   y en centro mèdico autorizado.
                 </p>
-                <a href="#" className="btn btn-primary">
+                <a href="/login" className="btn btn-primary">
                   Accede ahora mismo
                 </a>
               </div>

@@ -12,13 +12,10 @@ import RequireAuth from '../../components/RequireAuth';
 import Unauthorized from '../Unauthorized';
 import { ROLES } from '../../constants';
 
-
-
-
 function App() {
-
   return (
     <Routes>
+      <Route path="/home" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route
         element={
@@ -34,9 +31,8 @@ function App() {
         }
       >
         <Route path="/" element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
-
+          <Route path="/" element={<Home />} />
           <Route element={<RequireAuth allowedRoles={[ROLES.Hospital]} />}>
             <Route path="/registro" element={<Register />} />
           </Route>
