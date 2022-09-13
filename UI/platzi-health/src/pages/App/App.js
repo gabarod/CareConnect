@@ -7,6 +7,7 @@ import Report from '../Report';
 import HistoryList from '../HistoryList';
 import History from '../History';
 import Hospital from '../Hospital';
+import WhiteList from '../WhiteList';
 import Login from '../Login';
 import RequireAuth from '../../components/RequireAuth';
 import Unauthorized from '../Unauthorized';
@@ -45,6 +46,11 @@ function App() {
             <Route path="/informe" element={<Report />} />
             <Route path="/historiales" element={<HistoryList />} />
             <Route path="/historial" element={<History />} />
+          </Route>
+
+          <Route
+            element={<RequireAuth allowedRoles={[ROLES.Hospital, ROLES.Patient]} /> } >
+            <Route path="/whitelist" element={<WhiteList />} />
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Owner]} />}>

@@ -8,6 +8,13 @@ const general = [
   },
 ];
 
+const whitelist = [
+  {
+    name: 'Configuración',
+    to: '/whitelist'
+  },
+]
+
 const rolesLinks = {
   1: [
     {
@@ -20,6 +27,7 @@ const rolesLinks = {
       name: 'Registro',
       to: '/registro',
     },
+    ...whitelist
   ],
   3: [
     {
@@ -28,7 +36,10 @@ const rolesLinks = {
     },
     ...general,
   ],
-  4: general,
+  4: [
+    ...general,
+    ...whitelist
+  ]
 };
 
 const homeLink = [
