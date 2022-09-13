@@ -15,6 +15,8 @@ Implementar una Dapp que posibilite al paciente obtener historiales médicos de 
 
 ![image](https://user-images.githubusercontent.com/42686893/189774492-7bc61e8c-b28f-4f9e-892d-fd4c77dce68a.png)
 
+### Visita [Care Connect](https://care-connect.vercel.app/home)
+
 ## Tecnologías utilizadas
 
   - Solidity
