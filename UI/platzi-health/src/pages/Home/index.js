@@ -11,15 +11,15 @@ const Home = () => {
             <div className="content mx-auto align-self-center px-4 my-5">
               <small className="d-block text-primary mb-3">
                 <span className="badge bg-primary me-2">Versión beta</span>
-                Estamos versión de pruebas, mejorando funcionalidades para ti.
+                Estamos en versión de pruebas, mejorando funcionalidades para ti.
               </small>
               <h1 className="display-4 fw-bold mb-4">
-                Tu historial médico al alcance de un clic
+                Tu historial médico al alcance de un click
                 <span className="text-primary">.</span>
               </h1>
               <p className="lead mb-4">
                 Ahora puedes tener tu historial médico 100% disponible y con
-                control total de quén accede a tu información.
+                control total de quién accede a tu información.
               </p>
               <a href="/login" className="btn btn-primary mb-5">
                 Accede hoy
@@ -83,7 +83,7 @@ const Home = () => {
                   <div className="ms-3">
                     <p className="lead fw-bold">Registra tus citas médicas.</p>
                     <p>
-                      Con la app el doctor puede ingresar los datos y
+                      Con la app el doctor puede ingresar los datos, el
                       diagnóstico de tu consulta y quedará el registro
                       almacenado en la blockchain
                     </p>
@@ -94,7 +94,7 @@ const Home = () => {
                   <div className="ms-3">
                     <p className="lead fw-bold">Accede a tu cuenta.</p>
                     <p>
-                      Con tus datos creados puedes acceder a los mismos desde
+                      Con tus datos creados puedes acceder a los mismos
                       autenticandote con tu wallet.
                     </p>
                   </div>
