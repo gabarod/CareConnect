@@ -38,8 +38,9 @@ Implementar una Dapp que posibilite al paciente obtener historiales médicos de 
 **Oriana Morillo**
   - Linkedin: /oriana-morillo
   - Twitter: @oriplus_
-  
+
 **Carolina Fernandez**
+  - Linkedin: /cfcanovas
   - Twitter: @UchihaCFC
 
 
